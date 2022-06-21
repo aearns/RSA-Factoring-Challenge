@@ -5,7 +5,7 @@
 #include <fcntl.h>
 #include <errno.h>
 #include <unistd.h>
-#include <gmp.h>
+// #include <gmp.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 
@@ -74,9 +74,22 @@ size_t print_factor(mpz_t num, FILE *fs)
         if (prime != -1)
         {
             prime = sieve(1);
-
+        //printf()
             if (prime != -1)
-                mpz_set_ui(i, prime);
+                mpz_set_ui(i, prime);          
+        }
+        mpz_mod (mod, num, i);
+        if (mpz_cmp_d(mod, 0) == 0)
+        {
+            mpz_div(ans, num, i);
+            printed += mpz_out_str(fs, 10, num);
+            printed += fprintf(fs, "=");
+            printed += mpz_out_str(fs, 10, ans);
+            printed += fprintf(fs, "*");
+            printed += mpz_out_str(fs, 10, i)
+            printed += fprintf(fs, "\n");
+            return (printed);
         }
     }
+
 }

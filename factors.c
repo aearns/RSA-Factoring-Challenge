@@ -28,7 +28,8 @@ int sieve(int stat)
             if (prime[p] == true)
                 for (int i = p * p; i <= Size; i += p)
                     prime[i] = false;
-
+        
+        // Print all prime number
         for (int p = 2; p < Size; p++)
             if (prime[p])
             {
@@ -44,4 +45,38 @@ int sieve(int stat)
     }
     else
         current = 0;
+}
+
+/**
+ * print_factor - prints two factors of num in the followgin format
+ * n=p*q, where n is the number and p&q are factors
+ * p&q are not necessarly primes
+ * @num: the number whose factors are to be printed
+ * @fs: File stream to print to
+ *Return: the number of characters printed
+ */
+
+size_t print_factor(mpz_t num, FILE *fs)
+{
+    mpz_t i, ans, j, mod;
+    size_t printed = 0;
+    int prime = 2;
+
+    mpz_init(i);
+    mpz_init(mod);
+    mpz_init(ans);
+    mpz_init(j);
+
+    while (1)
+    {
+        if (mpz_cmp(i, num) >= 0)
+            break;
+        if (prime != -1)
+        {
+            prime = sieve(1);
+
+            if (prime != -1)
+                mpz_set_ui(i, prime);
+        }
+    }
 }
